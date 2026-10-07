@@ -76,7 +76,7 @@ class Mahasiswa {
 
   /// Serialisasi objek ke format JSON String
   String toJson() => json.encode(toMap());
-
+  
   /// Deserialisasi dari JSON String ke objek Mahasiswa
   factory Mahasiswa.fromJson(String source) =>
       Mahasiswa.fromMap(json.decode(source) as Map<String, dynamic>);
