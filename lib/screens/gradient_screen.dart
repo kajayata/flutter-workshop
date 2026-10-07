@@ -39,14 +39,11 @@ class _GradientScreen extends State<GradientScreen> {
                       tag: gambar[i],
                       child: Material(
                         child: InkWell(
-                          child: Flexible(
-                            flex: 1,
-                            child: Container(
-                              color: colors.values.elementAt(i),
-                              child: Image.asset(
-                                "img/${gambar[i]}",
-                                fit: BoxFit.cover,
-                              ),
+                          child: Container(
+                            color: colors.values.elementAt(i),
+                            child: Image.asset(
+                              "assets/img/${gambar[i]}",
+                              fit: BoxFit.cover,
                             ),
                           ),
                           onTap: () => Navigator.of(context).push(
@@ -99,12 +96,9 @@ class Halamandua extends StatelessWidget {
                   child: Material(
                     child: InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Flexible(
-                        flex: 1,
-                        child: Container(
-                          color: colors,
-                          child: Image.asset("img/$gambar", fit: BoxFit.cover),
-                        ),
+                      child: Container(
+                        color: colors,
+                        child: Image.asset("assets/img/$gambar", fit: BoxFit.cover),
                       ),
                     ),
                   ),
