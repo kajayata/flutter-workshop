@@ -68,37 +68,73 @@ class _GradientScreen extends State<GradientScreen> {
   }
 }
 
-class Halamandua extends StatelessWidget {
+class Halamandua extends StatefulWidget {
   const Halamandua({super.key, required this.gambar, required this.colors});
   final String gambar;
   final Color colors;
+
+  @override
+  State<Halamandua> createState() => _HalamanduaState();
+}
+
+class _HalamanduaState extends State<Halamandua> {
+  Color warna = Colors.grey;
+
+  void _pilihannya(Pilihan pilihan) {
+    setState(() {
+      warna = pilihan.warna;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("BT21"), backgroundColor: Colors.purpleAccent),
-      body: Stack(
+    return new Scaffold(
+      appBar: new AppBar(
+        title: Text("BT21"),
+        backgroundColor: Colors.purpleAccent,
+        actions: <Widget>[
+          new PopupMenuButton<Pilihan>(
+            onSelected: _pilihannya,
+            itemBuilder: (BuildContext context) {
+              return ListPilihan.map((Pilihan x) {
+                return new PopupMenuItem<Pilihan>(
+                  value: x,
+                  child: new Text(x.teks),
+                );
+              }).toList();
+            },
+          ),
+        ],
+      ),
+      body: new Stack(
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
+          new Container(
+            decoration: new BoxDecoration(
               gradient: RadialGradient(
                 center: Alignment.center,
                 colors: [Colors.purple, Colors.white, Colors.deepPurple],
               ),
             ),
           ),
-          Center(
-            child: Hero(
-              tag: gambar,
-              child: ClipOval(
+          new Center(
+            child: new Hero(
+              tag: widget.gambar,
+              child: new ClipOval(
                 child: SizedBox(
                   width: 200.0,
                   height: 200.0,
-                  child: Material(
-                    child: InkWell(
+                  child: new Material(
+                    child: new InkWell(
                       onTap: () => Navigator.of(context).pop(),
-                      child: Container(
-                        color: colors,
-                        child: Image.asset("assets/img/$gambar", fit: BoxFit.cover),
+                      child: new Flexible(
+                        flex: 1,
+                        child: Container(
+                          color: widget.colors,
+                          child: new Image.asset(
+                            "assets/img/${widget.gambar}",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -111,3 +147,16 @@ class Halamandua extends StatelessWidget {
     );
   }
 }
+
+// menambah class pilihan
+class Pilihan {
+  const Pilihan({required this.teks, required this.warna});
+  final String teks;
+  final Color warna;
+}
+
+List<Pilihan> ListPilihan = <Pilihan>[
+  const Pilihan(teks: 'Pilihan 1', warna: Colors.red),
+  const Pilihan(teks: 'Pilihan 2', warna: Colors.green),
+  const Pilihan(teks: 'Pilihan 3', warna: Colors.blue),
+];
